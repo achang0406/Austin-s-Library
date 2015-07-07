@@ -1,0 +1,57 @@
+<html>
+<head>
+	<title>HW4 - DojoQuery</title>
+</head>
+<body>
+	<div id="container">
+		<button id="btn">AWESOME</button>
+	</div>
+	<script type="text/javascript">
+
+		$Dojo = (function(){
+			var $Dojo = function(html){
+				var dojo = function(){
+					return document.getElementById(html);
+				}
+
+				return {
+					click: function(callback) {
+						var click = dojo();
+						click.addEventListener("click", clickEvent);
+						function clickEvent(){
+							callback();
+						};
+					},
+					hover: function(hoverin, hoverout) {
+						var hover = dojo();
+						hover.addEventListener("mouseover", hoverInEvent);
+						hover.addEventListener("mouseout", hoverOutEvent);
+						function hoverInEvent(){
+							if(hoverin){
+								hoverin();
+							}
+						};
+						function hoverOutEvent(){
+							if(hoverout){
+								hoverout();	
+							}
+						};
+					}
+				}
+			}
+			return $Dojo;
+		})();
+
+
+		$Dojo("btn").click(function(){
+			console.log("CLICKED");
+		});
+		$Dojo("btn").hover(function(){
+			console.log('hovered in');
+		}, function(){
+			console.log('hovered out');
+		});
+
+	</script>
+</body>
+</html>
